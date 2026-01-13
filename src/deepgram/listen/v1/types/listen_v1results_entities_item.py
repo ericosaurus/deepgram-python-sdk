@@ -17,7 +17,7 @@ class ListenV1ResultsEntitiesItem(UniversalBaseModel):
     The formatted text representation of the entity
     """
 
-    raw_value: str = pydantic.Field()
+    raw_value: typing.Optional[str] = pydantic.Field(default=None)
     """
     The original spoken text of the entity (present when formatting is enabled)
     """
