@@ -47,14 +47,15 @@ class V1Client:
         callback: typing.Optional[str] = None,
         callback_method: typing.Optional[str] = None,
         channels: typing.Optional[str] = None,
+        detect_entities: typing.Optional[str] = None,
         diarize: typing.Optional[str] = None,
         dictation: typing.Optional[str] = None,
         encoding: typing.Optional[str] = None,
         endpointing: typing.Optional[str] = None,
         extra: typing.Optional[str] = None,
         interim_results: typing.Optional[str] = None,
-        keyterm: typing.Optional[str] = None,
-        keywords: typing.Optional[str] = None,
+        keyterm: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        keywords: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         language: typing.Optional[str] = None,
         mip_opt_out: typing.Optional[str] = None,
         model: str,
@@ -63,9 +64,9 @@ class V1Client:
         profanity_filter: typing.Optional[str] = None,
         punctuate: typing.Optional[str] = None,
         redact: typing.Optional[str] = None,
-        replace: typing.Optional[str] = None,
+        replace: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         sample_rate: typing.Optional[str] = None,
-        search: typing.Optional[str] = None,
+        search: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         smart_format: typing.Optional[str] = None,
         tag: typing.Optional[str] = None,
         utterance_end_ms: typing.Optional[str] = None,
@@ -84,6 +85,8 @@ class V1Client:
         callback_method : typing.Optional[str]
 
         channels : typing.Optional[str]
+
+        detect_entities : typing.Optional[str]
 
         diarize : typing.Optional[str]
 
@@ -154,6 +157,8 @@ class V1Client:
             query_params = query_params.add("callback_method", callback_method)
         if channels is not None:
             query_params = query_params.add("channels", channels)
+        if detect_entities is not None:
+            query_params = query_params.add("detect_entities", detect_entities)
         if diarize is not None:
             query_params = query_params.add("diarize", diarize)
         if dictation is not None:
@@ -167,9 +172,17 @@ class V1Client:
         if interim_results is not None:
             query_params = query_params.add("interim_results", interim_results)
         if keyterm is not None:
-            query_params = query_params.add("keyterm", keyterm)
+            if isinstance(keyterm, str):
+                query_params = query_params.add("keyterm", keyterm)
+            else:
+                for term in keyterm:
+                    query_params = query_params.add("keyterm", term)
         if keywords is not None:
-            query_params = query_params.add("keywords", keywords)
+            if isinstance(keywords, str):
+                query_params = query_params.add("keywords", keywords)
+            else:
+                for keyword in keywords:
+                    query_params = query_params.add("keywords", keyword)
         if language is not None:
             query_params = query_params.add("language", language)
         if mip_opt_out is not None:
@@ -187,11 +200,19 @@ class V1Client:
         if redact is not None:
             query_params = query_params.add("redact", redact)
         if replace is not None:
-            query_params = query_params.add("replace", replace)
+            if isinstance(replace, str):
+                query_params = query_params.add("replace", replace)
+            else:
+                for replacement in replace:
+                    query_params = query_params.add("replace", replacement)
         if sample_rate is not None:
             query_params = query_params.add("sample_rate", sample_rate)
         if search is not None:
-            query_params = query_params.add("search", search)
+            if isinstance(search, str):
+                query_params = query_params.add("search", search)
+            else:
+                for term in search:
+                    query_params = query_params.add("search", term)
         if smart_format is not None:
             query_params = query_params.add("smart_format", smart_format)
         if tag is not None:
@@ -258,14 +279,15 @@ class AsyncV1Client:
         callback: typing.Optional[str] = None,
         callback_method: typing.Optional[str] = None,
         channels: typing.Optional[str] = None,
+        detect_entities: typing.Optional[str] = None,
         diarize: typing.Optional[str] = None,
         dictation: typing.Optional[str] = None,
         encoding: typing.Optional[str] = None,
         endpointing: typing.Optional[str] = None,
         extra: typing.Optional[str] = None,
         interim_results: typing.Optional[str] = None,
-        keyterm: typing.Optional[str] = None,
-        keywords: typing.Optional[str] = None,
+        keyterm: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        keywords: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         language: typing.Optional[str] = None,
         mip_opt_out: typing.Optional[str] = None,
         model: str,
@@ -274,9 +296,9 @@ class AsyncV1Client:
         profanity_filter: typing.Optional[str] = None,
         punctuate: typing.Optional[str] = None,
         redact: typing.Optional[str] = None,
-        replace: typing.Optional[str] = None,
+        replace: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         sample_rate: typing.Optional[str] = None,
-        search: typing.Optional[str] = None,
+        search: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         smart_format: typing.Optional[str] = None,
         tag: typing.Optional[str] = None,
         utterance_end_ms: typing.Optional[str] = None,
@@ -295,6 +317,8 @@ class AsyncV1Client:
         callback_method : typing.Optional[str]
 
         channels : typing.Optional[str]
+
+        detect_entities : typing.Optional[str]
 
         diarize : typing.Optional[str]
 
@@ -365,6 +389,8 @@ class AsyncV1Client:
             query_params = query_params.add("callback_method", callback_method)
         if channels is not None:
             query_params = query_params.add("channels", channels)
+        if detect_entities is not None:
+            query_params = query_params.add("detect_entities", detect_entities)
         if diarize is not None:
             query_params = query_params.add("diarize", diarize)
         if dictation is not None:
@@ -378,9 +404,17 @@ class AsyncV1Client:
         if interim_results is not None:
             query_params = query_params.add("interim_results", interim_results)
         if keyterm is not None:
-            query_params = query_params.add("keyterm", keyterm)
+            if isinstance(keyterm, str):
+                query_params = query_params.add("keyterm", keyterm)
+            else:
+                for term in keyterm:
+                    query_params = query_params.add("keyterm", term)
         if keywords is not None:
-            query_params = query_params.add("keywords", keywords)
+            if isinstance(keywords, str):
+                query_params = query_params.add("keywords", keywords)
+            else:
+                for keyword in keywords:
+                    query_params = query_params.add("keywords", keyword)
         if language is not None:
             query_params = query_params.add("language", language)
         if mip_opt_out is not None:
@@ -398,11 +432,19 @@ class AsyncV1Client:
         if redact is not None:
             query_params = query_params.add("redact", redact)
         if replace is not None:
-            query_params = query_params.add("replace", replace)
+            if isinstance(replace, str):
+                query_params = query_params.add("replace", replace)
+            else:
+                for replacement in replace:
+                    query_params = query_params.add("replace", replacement)
         if sample_rate is not None:
             query_params = query_params.add("sample_rate", sample_rate)
         if search is not None:
-            query_params = query_params.add("search", search)
+            if isinstance(search, str):
+                query_params = query_params.add("search", search)
+            else:
+                for term in search:
+                    query_params = query_params.add("search", term)
         if smart_format is not None:
             query_params = query_params.add("smart_format", smart_format)
         if tag is not None:
